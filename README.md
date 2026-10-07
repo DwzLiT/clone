@@ -1,4 +1,12 @@
-# Flowly
+# My HTML Project
+
+A cool Web project built with HTML, CSS, and JavaScript.
+
+## How to Get Started
+
+Just clone the repository and open `index.html` in your browser!
+
+![Git Clone Meme](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcG90dnR2YXRzMnk5Zmhxb3RsaWtlOHRydzVscjhiaXg2cDNxd2N2biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/k3cqmB0r834t4E63B4/giphy.gif)
 
 
 Flowly – minimalistinė užduočių ir progreso valdymo aplikacija, kuriama naudojant React ir Vite.
