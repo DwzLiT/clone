@@ -54,6 +54,14 @@
   color: var(--text);
 }
 
+.task-api-error {
+  width: min(100%, 400px);
+  margin: 0;
+  color: #f87171;
+  font-size: 14px;
+  text-align: center;
+}
+
 .login-card {
   width: min(100%, 400px);
   padding: 36px 32px 32px;
