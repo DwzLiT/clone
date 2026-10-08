@@ -45,7 +45,10 @@ function getApiTasks(data) {
 }
 
 function App() {
-  const user = { name: "Jonas Jonaitis", email: "jonas@flowly.lt" };
+  const [loggedInUsername, setLoggedInUsername] = useState("");
+  const user = loggedInUsername === "demo"
+    ? { name: "Demo naudotojas", email: "demo" }
+    : { name: "Test", email: "jonas@flowly.lt" };
   const [activePage, setActivePage] = useState("home");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -75,8 +78,9 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    if (email === "admin" && password === "admin") {
+    if ((email === "admin" && password === "admin") || (email === "demo" && password === "demo")) {
       setIsLoggedIn(true);
+      setLoggedInUsername(email);
       setLoginError("");
     } else {
       setLoginError("Neteisingas vartotojo vardas arba slaptažodis.");
