@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import "./App.css";
 
 const TASKS_API_URL = "https://testapi.io/api/DwzLiT/resource/tasklist";
+const AUTH_API_URL = "https://testapi.io/api/DwzLiT/resource/auth";
 
 async function readApiResponse(response) {
   if (response.status === 204) return null;
@@ -44,6 +45,13 @@ function getApiTasks(data) {
     .map((task) => ({ ...task, status: task.status || "Nepradėta", deadline: task.deadline || "" }));
 }
 
+function getApiUsers(data) {
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.data)) return data.data;
+  if (Array.isArray(data?.items)) return data.items;
+  return data && typeof data === "object" ? [data] : [];
+}
+
 function App() {
   const [loggedInUsername, setLoggedInUsername] = useState("");
   const user = loggedInUsername === "demo"
@@ -76,14 +84,47 @@ function App() {
   const completedTasks = tasks.filter((task) => task.status === "Atlikta").length;
   const progress = tasks.length ? Math.round((completedTasks / tasks.length) * 100) : 0;
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    if ((email === "admin" && password === "admin") || (email === "demo" && password === "demo")) {
+    setLoginError("");
+
+    try {
+      const response = await fetch(AUTH_API_URL);
+      const users = getApiUsers(await readApiResponse(response));
+      let matchingUser = users.find((user) =>
+        user.username === email && user.password === password,
+      );
+
+      const builtInUsers = {
+        admin: "admin",
+        demo: "demo",
+      };
+
+      if (!matchingUser && builtInUsers[email] === password) {
+        const createResponse = await fetch(AUTH_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: email, password: builtInUsers[email] }),
+        });
+        matchingUser = await readApiResponse(createResponse);
+        if (!matchingUser?.username) {
+          const refreshResponse = await fetch(AUTH_API_URL);
+          const refreshedUsers = getApiUsers(await readApiResponse(refreshResponse));
+          matchingUser = refreshedUsers.find((user) =>
+            user.username === email && user.password === password,
+          );
+        }
+      }
+
+      if (!matchingUser) {
+        setLoginError("Neteisingas vartotojo vardas arba slaptažodis.");
+        return;
+      }
+
       setIsLoggedIn(true);
-      setLoggedInUsername(email);
-      setLoginError("");
-    } else {
-      setLoginError("Neteisingas vartotojo vardas arba slaptažodis.");
+      setLoggedInUsername(matchingUser.username);
+    } catch (error) {
+      setLoginError(error.message || "Nepavyko patikrinti prisijungimo duomenų.");
     }
   }
 
