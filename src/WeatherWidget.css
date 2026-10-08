@@ -1,0 +1,141 @@
+.weather-card {
+  width: min(100%, 400px);
+  padding: 28px 26px 24px;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.weather-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.weather-card__eyebrow {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.weather-card__header h2 {
+  margin: 0;
+  color: var(--text-h);
+  font-size: 22px;
+}
+
+.weather-card__city {
+  color: var(--text);
+  font-size: 12px;
+  text-align: right;
+}
+
+.weather-search {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.weather-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+  font: inherit;
+}
+
+.weather-search button {
+  padding: 8px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.weather-search button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.weather-current {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.weather-current__icon {
+  font-size: 42px;
+  line-height: 1;
+}
+
+.weather-current__temperature {
+  margin: 0;
+  color: var(--text-h);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.weather-current__description {
+  margin: 4px 0 0;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.weather-card__details {
+  margin: 14px 0 0;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.weather-forecast {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.weather-forecast__day {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.weather-forecast__day strong {
+  color: var(--text-h);
+}
+
+.weather-card__state {
+  margin: 18px 0 4px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.weather-card__state--error {
+  color: #f87171;
+}
+
+@media (max-width: 480px) {
+  .weather-card {
+    padding: 22px 18px;
+  }
+}

@@ -4,6 +4,7 @@ import ProgressBar from "./ProgressBar";
 import Navbar from "./Navbar";
 import AddTaskForm from "./AddTaskForm";
 import Profile from "./Profile";
+import WeatherWidget from "./WeatherWidget";
 import "./App.css";
 
 const TASKS_API_URL = "https://testapi.io/api/DwzLiT/resource/tasklist";
@@ -198,6 +199,7 @@ function App() {
                 <section className="dashboard-summary" aria-label="Užduočių suvestinė">
                   <p><strong>{tasks.length} užduotys</strong><span aria-hidden="true">·</span><strong>{completedTasks} atliktos</strong><span aria-hidden="true">·</span><strong>{progress}% progresas</strong></p>
                 </section>
+                <WeatherWidget />
                 <TaskList tasks={tasks} loading={tasksLoading} onRefresh={loadTasks} onUpdate={handleUpdateTask} onDelete={handleDeleteTask} />
                 <AddTaskForm onAddTask={handleAddTask} />
                 <ProgressBar initialProgress={progress} />
